@@ -12,6 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
 load_dotenv()
+chrome_driver_path = "/Users/gerardhernandez/code/rollbit-tracker/chromedriver"
 
 token = os.getenv("TOKEN")
 chrome_options = Options()
