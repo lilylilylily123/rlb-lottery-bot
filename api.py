@@ -12,11 +12,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
 load_dotenv()
-chrome_driver_path = "/Users/gerardhernandez/code/rollbit-tracker/chromedriver"
 
 token = os.getenv("TOKEN")
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--disable-notifications")
+chrome_options.add_experimental_option("detach", True)
+chrome_driver_path = "/Users/gerardhernandez/code/rollbit-tracker/chromedriver"
 bot = discord.Bot()
 channelid = []
 
@@ -56,7 +63,6 @@ async def send_stat(stats):
         print("Sent stats to {0}".format(i))
 
 
-chrome_options.add_argument("--headless")
 
 async def get_id():
     apiUrl = "https://rollbit.com/rlb/lottery/current"
