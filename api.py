@@ -1,14 +1,19 @@
 import asyncio
+import os
 import time
 import discord
 from discord.ext import tasks
 import json
+from dotenv import load_dotenv
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
+load_dotenv()
+
+token = os.getenv("TOKEN")
 chrome_options = Options()
 chrome_options.add_experimental_option("detach", True)
 bot = discord.Bot()
@@ -76,4 +81,4 @@ async def loop():
 
 
 driver = webdriver.Chrome(options=chrome_options)
-bot.run("MTA5NTc2MDc0MzI3MTUwMTg3Ng.G6A2vt.S86ivntiE5Vaai91HasMzruUWaEsfVtmxWdeh0")
+bot.run(token)
