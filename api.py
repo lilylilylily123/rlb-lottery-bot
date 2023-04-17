@@ -15,14 +15,7 @@ load_dotenv()
 
 token = os.getenv("TOKEN")
 chrome_options = Options()
-chrome_options.add_experimental_option("detach", True)
-chrome_options.add_argument("--disable-gpu")
-chrome_options.add_argument("--disable-extensions")
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--disable-notifications")
-chrome_options.add_experimental_option("detach", True)
+
 chrome_driver_path = "/Users/gerardhernandez/code/rollbit-tracker/chromedriver"
 bot = discord.Bot()
 channelid = []
@@ -69,7 +62,7 @@ async def get_id():
     apiUrl = "https://rollbit.com/rlb/lottery/current"
     driver.get(apiUrl)
     WebDriverWait(driver, 10).until(lambda driver: driver.find_element(By.XPATH, '/html/body/div[1]/div[6]/div[1]/div/div[6]/div[1]/div[1]'))
-    content = driver.find_element(By.CLASS_NAME, 'css-1jje1nd').text
+    content = driver.find_element(By.XPATH, '/html/body/div[1]/div[6]/div[1]/div/div[6]/div[1]/div[1]').text
     res = [int(i) for i in content.split() if i.isdigit()]
     print(res[0])
     if res[0] >= 15:
@@ -87,6 +80,13 @@ async def total():
 async def loop():
     await total()
 
-
+chrome_options.add_experimental_option("detach", True)
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--no-sandbox")
+# chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--disable-notifications")
+chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
 driver = webdriver.Chrome(options=chrome_options)
 bot.run(token)
