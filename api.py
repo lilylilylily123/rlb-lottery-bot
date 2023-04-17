@@ -2,6 +2,7 @@ import asyncio
 import os
 import time
 import discord
+from pyvirtualdisplay import Display
 from discord.ext import tasks
 import json
 from dotenv import load_dotenv
@@ -10,7 +11,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-
+display = Display(visible=False, size=(800, 600))
+display.start()
 load_dotenv()
 
 token = os.getenv("TOKEN")
