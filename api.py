@@ -11,8 +11,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-display = Display(visible=False, size=(800, 600))
-display.start()
+# display = Display(visible=False, size=(800, 600))
+# display.start()
 load_dotenv()
 
 token = os.getenv("TOKEN")
@@ -63,8 +63,9 @@ async def get_id():
     driver.set_page_load_timeout(40)
     apiUrl = "https://rollbit.com/rlb/lottery/current"
     driver.get(apiUrl)
-    WebDriverWait(driver, 10).until(lambda driver: driver.find_element(By.XPATH, '/html/body/div[1]/div[6]/div[1]/div/div[6]/div[1]/div[1]'))
-    content = driver.find_element(By.XPATH, '/html/body/div[1]/div[6]/div[1]/div/div[6]/div[1]/div[1]').text
+    WebDriverWait(driver, 10).until(lambda driver: driver.find_element(By.CLASS_NAME, 'css-1jje1nd'))
+    content = driver.find_element(By.CLASS_NAME, 'css-1jje1nd').text
+    # driver.execute_script("window.scrollTo(0,"+str(content.location['y'])+")")
     res = [int(i) for i in content.split() if i.isdigit()]
     print(res[0])
     if res[0] >= 15:
@@ -86,7 +87,7 @@ chrome_options.add_experimental_option("detach", True)
 chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument("--no-sandbox")
-# chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-notifications")
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
