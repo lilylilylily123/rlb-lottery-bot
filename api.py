@@ -60,19 +60,20 @@ async def send_stat(stats):
 
 
 async def get_id():
-    driver.set_page_load_timeout(20)
-    apiUrl = "https://rollbit.com/rlb/lottery/current"
-    driver.get(apiUrl)
     try:
-        WebDriverWait(driver, 10).until(lambda driver: driver.find_element(By.CLASS_NAME, 'css-1jje1nd'))
-        content = driver.find_element(By.CLASS_NAME, 'css-1jje1nd').text
-        # driver.execute_script("window.scrollTo(0,"+str(content.location['y'])+")")
-        res = [int(i) for i in content.split() if i.isdigit()]
-        print(res[0])
-        if res[0] >= 15:
-            await send_stat("Lottery is at ``{0}/100``! Go buy!".format(res[0]))
-        else:
-            pass
+        with webdriver.Chrome(options=chrome_options) as driver:
+            driver.set_page_load_timeout(20)
+            apiUrl = "https://rollbit.com/rlb/lottery/current"
+            driver.get(apiUrl)
+            WebDriverWait(driver, 10).until(lambda driver: driver.find_element(By.CLASS_NAME, 'css-1jje1nd'))
+            content = driver.find_element(By.CLASS_NAME, 'css-1jje1nd').text
+            # driver.execute_script("window.scrollTo(0,"+str(content.location['y'])+")")
+            res = [int(i) for i in content.split() if i.isdigit()]
+            print(res[0])
+            if res[0] >= 15:
+                await send_stat("Lottery is at ``{0}/100``! Go buy!".format(res[0]))
+            else:
+                pass
     except Exception as e:
         print(e)
         pass
@@ -96,5 +97,4 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-notifications")
 chrome_options.add_argument("--start-maximized")
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
-driver = webdriver.Chrome(options=chrome_options)
 bot.run(token)
