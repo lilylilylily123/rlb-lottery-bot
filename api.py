@@ -76,6 +76,7 @@ async def get_id():
                 pass
     except Exception as e:
         print(e)
+        print("DID NOT WORK.")
         pass
 
 
