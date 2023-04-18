@@ -61,7 +61,7 @@ async def send_stat(stats):
 
 async def get_id():
     try:
-        with webdriver.Chrome(options=chrome_options) as driver:
+        with webdriver.Chrome(executable_path=chrome_driver_path, options=chrome_options) as driver:
             driver.set_page_load_timeout(20)
             apiUrl = "https://rollbit.com/rlb/lottery/current"
             driver.get(apiUrl)
