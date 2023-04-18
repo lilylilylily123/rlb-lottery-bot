@@ -60,10 +60,10 @@ async def send_stat(stats):
 
 
 async def get_id():
-    driver.set_page_load_timeout(40)
+    driver.set_page_load_timeout(20)
     apiUrl = "https://rollbit.com/rlb/lottery/current"
     driver.get(apiUrl)
-    WebDriverWait(driver, 50).until(lambda driver: driver.find_element(By.CLASS_NAME, 'css-1jje1nd'))
+    WebDriverWait(driver, 10).until(lambda driver: driver.find_element(By.CLASS_NAME, 'css-1jje1nd'))
     content = driver.find_element(By.CLASS_NAME, 'css-1jje1nd').text
     # driver.execute_script("window.scrollTo(0,"+str(content.location['y'])+")")
     res = [int(i) for i in content.split() if i.isdigit()]
